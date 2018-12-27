@@ -9,22 +9,24 @@ import { fetchRandomContact } from '../utils/api';
 import colors from '../utils/colors';
 
 export default class Profile extends React.Component {
-	state = {
-		contact: {},
-	}
+	// state = {
+	// 	contact: {},
+	// }
 
-	async componentDidMount() {
-		const contact = await fetchRandomContact();
+	// async componentDidMount() {
+	// 	const contact = await fetchRandomContact();
 
-		this.setState({
-			contact
-		});
-	}
+	// 	this.setState({
+	// 		contact
+	// 	});
+	// }
 
 	render() {
+		const { navigation: { state: { params } } } = this.props;
+		const { contact } = params;
 		const {
 			avatar, name, email, phone, cell,
-		} = this.state.contact
+		} = contact;
 
 		return (
 			<View style={styles.container} >
