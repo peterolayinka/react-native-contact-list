@@ -9,6 +9,8 @@ import {
 
 import ContactListItem  from '../components/ContactListItem';
 import { fetchContacts } from '../utils/api';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import colors from '../utils/colors';
 
 const keyExtractor = ({ phone }) => `${phone}`;
 
@@ -18,6 +20,18 @@ export default class Contacts extends React.Component {
 		loading: true,
 		error: false,
 	};
+
+	static navigationOptions = ({navigation: { navigate }}) => ({
+		title: 'Contacts',
+		headerLeft: (
+			<MaterialIcons
+				name='menu'
+				size={24}
+				style={{ color: colors.black, marginLeft: 10 }}
+				onPress={() => navigate('DrawerToggle')}
+			/>
+		)
+	})
 
 	async componentDidMount() {
 		try {

@@ -4,22 +4,19 @@ import { StyleSheet, View } from 'react-native';
 import ContactThumbnail from '../components/ContactThumbnail';
 import DetailListItem from '../components/DetailListItem';
 
-import { fetchRandomContact } from '../utils/api';
-
 import colors from '../utils/colors';
 
 export default class Profile extends React.Component {
-	// state = {
-	// 	contact: {},
-	// }
-
-	// async componentDidMount() {
-	// 	const contact = await fetchRandomContact();
-
-	// 	this.setState({
-	// 		contact
-	// 	});
-	// }
+	static navigationOptions =  ({ navigation: { state: { params } }}) => {
+		const {contact: { name }} = params;
+		return {
+			title: name.split(' ')[0],
+			headerStyle: {
+				backgroundColor: colors.blue,
+			},
+			headerTintColor: 'white',
+		}
+	}
 
 	render() {
 		const { navigation: { state: { params } } } = this.props;
