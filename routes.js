@@ -28,7 +28,7 @@ const ContactsScreens = StackNavigator({
 }, {
 	initialRouteName: 'Contacts',
 	navigationOptions: {
-		tabBarIcon: getDrawerIcon('list'),
+		drawerIcon: getDrawerIcon('list'),
 	}
 })
 
@@ -42,7 +42,7 @@ const FavoritesScreens = StackNavigator({
 },{
 	initialRouteName: 'Favorites',
 	navigationOptions: {
-		tabBarIcon: getDrawerIcon('star'),
+		drawerIcon: getDrawerIcon('star'),
 	},
 })
 
@@ -57,7 +57,7 @@ const UserScreens = StackNavigator({
 	initialRouteName: 'User',
 	// mode: 'modal',
 	navigationOptions: {
-		tabBarIcon: getDrawerIcon('person'),
+		drawerIcon: getDrawerIcon('person'),
 	},
 })
 

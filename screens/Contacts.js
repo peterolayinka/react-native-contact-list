@@ -11,16 +11,11 @@ import ContactListItem  from '../components/ContactListItem';
 import { fetchContacts } from '../utils/api';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import colors from '../utils/colors';
+import store from '../store';
 
 const keyExtractor = ({ phone }) => `${phone}`;
 
 export default class Contacts extends React.Component {
-	state = {
-		contacts: [],
-		loading: true,
-		error: false,
-	};
-
 	static navigationOptions = ({navigation: { navigate }}) => ({
 		title: 'Contacts',
 		headerLeft: (
@@ -31,23 +26,29 @@ export default class Contacts extends React.Component {
 				onPress={() => navigate('DrawerToggle')}
 			/>
 		)
-	})
+	});
+
+	state = {
+		contacts: store.getState().contacts,
+		loading: store.getState().isFetchingContacts,
+		error: store.getState().error,
+	};
+
 
 	async componentDidMount() {
-		try {
-			const contacts = await fetchContacts();
+		this.unsubscribe = store.onChange(()=>(
+			this.setState({
+				contacts: store.getState().contacts,
+				loading: store.getState().isFetchingContacts,
+				error: store.getState().error,
+			})
+		))
+		const contacts = await fetchContacts();
+		store.setState({ contacts, isFetchingContacts: false })
+	}
 
-			this.setState({
-				contacts,
-				loading: false,
-				error: false,
-			});
-		} catch (e) {
-			this.setState({
-				loading: false,
-				error: true,
-			});
-		}
+	componentWillUnmount() {
+		this.unsubscribe();
 	}
 
 	renderContact = ({ item }) => {
